@@ -1,5 +1,6 @@
 <script lang="ts">
 	import './login.css'
+
 	export const ssr = false;
 
 	async function login(event: any) {
