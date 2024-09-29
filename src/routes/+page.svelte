@@ -1,7 +1,24 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import './login.css'
+	import { fetch_passwords } from '$lib/utils'
+	import { logged_in, page_contents } from '$lib/store'
 
-	export const ssr = false;
+	onMount(async()=>{
+		const token = localStorage.getItem("helios3token")
+		if (token) {
+			const response = await fetch_passwords(token)
+
+			// Log user out if the token is bugged
+			if (!response){
+				localStorage.removeItem('helios3token')
+				return undefined
+			}
+
+			logged_in.set(true)
+			window.location.href = 'home'
+		}
+	})
 
 	async function login(event: any) {
 		const formData = new FormData(event.target)
@@ -9,7 +26,14 @@
 			method: 'post',
 			body: formData
 		})
-		console.log(response)
+		if (response.ok) {
+			const json_response = await response.json()
+			console.log(json_response.token)
+			if (json_response.token) {
+				localStorage.setItem("helios3token", json_response.token)
+				window.location.href = 'home'
+			}
+		}
 	}
 
 </script>

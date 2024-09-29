@@ -73,5 +73,14 @@
     "css": [
       "_app/immutable/assets/_page.BToZahah.css"
     ]
+  },
+  "src/routes/home/+page.svelte": {
+    "file": "entries/pages/home/_page.svelte.js",
+    "name": "entries/pages/home/_page.svelte",
+    "src": "src/routes/home/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_ssr.js"
+    ]
   }
 }
