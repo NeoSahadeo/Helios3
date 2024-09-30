@@ -1,41 +1,22 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import './login.css'
-	import { fetch_passwords } from '$lib/utils'
-	import { logged_in, page_contents } from '$lib/store'
-
-	onMount(async()=>{
-		const token = localStorage.getItem("helios3token")
-		if (token) {
-			const response = await fetch_passwords(token)
-
-			// Log user out if the token is bugged
-			if (!response){
-				localStorage.removeItem('helios3token')
-				return undefined
-			}
-
-			logged_in.set(true)
-			window.location.href = 'home'
-		}
-	})
+	import { url_resolver } from '$lib/utils';
 
 	async function login(event: any) {
 		const formData = new FormData(event.target)
-		const response = await fetch('https://neosahadeo.pythonanywhere.com/login', {
+		const response = await fetch(url_resolver("api") + 'login', {
 			method: 'post',
 			body: formData
 		})
 		if (response.ok) {
 			const json_response = await response.json()
-			console.log(json_response.token)
+			console.log(json_response)
 			if (json_response.token) {
 				localStorage.setItem("helios3token", json_response.token)
 				window.location.href = 'home'
 			}
 		}
 	}
-
 </script>
 <div class="logo rounded-md shadow-lg">
 	<h1>
