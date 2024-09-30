@@ -1,6 +1,11 @@
 import { base } from "$app/paths";
 
-export async function fetch_passwords(token: string) {
+export async function fetch_passwords() {
+  const token = localStorage.getItem("helios3token");
+  if (token == null) {
+    return undefined;
+  }
+
   try {
     const response = await fetch(url_resolver("api") + "passwords", {
       headers: {
@@ -62,4 +67,32 @@ export async function is_loggedin() {
   } else {
     return false;
   }
+}
+
+export async function delete_password(formData: FormData) {
+  const token = localStorage.getItem("helios3token");
+  if (token) {
+    try {
+      const response = await fetch(url_resolver("api") + "passwords", {
+        method: "delete",
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+        body: formData,
+      });
+      if (response.ok) {
+        console.log(await response.json());
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error(error);
+    }
+  } else {
+    return false;
+  }
+}
+
+export async function create_password(formData: FormData) {
+  const token = localStorage.getItem("helios3token");
 }

@@ -24,8 +24,7 @@
 </script>
 
 {#if loading}
-
-<slot />
-{:else}
 <Loading />
+{:else}
+<slot />
 {/if}

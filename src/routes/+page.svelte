@@ -18,7 +18,7 @@
 		}
 	}
 </script>
-<div class="logo rounded-md shadow-lg">
+<div class="logo login rounded-md shadow-lg">
 	<h1>
 		Helios 3
 	</h1>

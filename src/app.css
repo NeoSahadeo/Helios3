@@ -3,49 +3,53 @@
 @tailwind utilities;
 
 * {
-	margin: 0px;
-	color: white;
+  margin: 0px;
+  color: white;
 }
 
 body {
-	display: flex;
-	flex-direction: column;
-	min-height: 100dvh;
-	background-color: #070707;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background-color: #070707;
 }
 
 .logo h1 {
-	color: transparent;
-	text-transform: none;
-	background: rgb(255, 244, 62);
-	background: linear-gradient(180deg, rgba(255, 244, 62, 1) 0%, rgba(255, 91, 0, 1) 100%);
-	line-break: auto;
-	overflow-wrap: initial;
-	white-space: pre;
-	text-rendering: geometricPrecision;
-	text-decoration: none;
-	letter-spacing: 0px;
-	font-size: 3em;
-	font-style: normal;
-	font-weight: bold;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	position: relative;
+  color: transparent;
+  text-transform: none;
+  background: rgb(255, 244, 62);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 244, 62, 1) 0%,
+    rgba(255, 91, 0, 1) 100%
+  );
+  line-break: auto;
+  overflow-wrap: initial;
+  white-space: pre;
+  text-rendering: geometricPrecision;
+  text-decoration: none;
+  letter-spacing: 0px;
+  font-size: 3em;
+  font-style: normal;
+  font-weight: bold;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
 }
 
 .logo span {
-	/*position: absolute;*/
-	font-weight: bold;
-	font-size: 1.09em;
-	margin-top: -0.5em;
-	white-space: nowrap;
+  /*position: absolute;*/
+  font-weight: bold;
+  font-size: 1.09em;
+  margin-top: -0.5em;
+  white-space: nowrap;
 }
 
 @media screen and (max-width: 640px) {
-	.logo h1 {
-		font-size: 3em;
-	}
-	.logo span {
-		font-size: 1.09em;
-	}
+  .logo h1 {
+    font-size: 3em;
+  }
+  .logo span {
+    font-size: 1.09em;
+  }
 }
