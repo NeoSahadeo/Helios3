@@ -1,5 +1,56 @@
 .notify {
   display: flex;
-  word-wrap: break-word;
-  white-space: nowrap;
+  flex-direction: row;
+  gap: 1em;
+  align-items: center;
+  word-break: break-all;
+  padding: 0.7em 1em;
+  border-radius: 0.135em;
+  font-weight: bold;
+  fill: white;
+  opacity: 1;
+  transition: 170ms all ease-in-out;
+  animation: 170ms slide-in ease-in-out;
+  min-width: 20em;
+  max-width: 20em;
+}
+
+.error {
+  background-color: #c70d0d;
+  color: #ffffff;
+}
+.info {
+  background-color: #0f73c6;
+}
+.success {
+  background-color: #1daa36;
+}
+.warning {
+  background-color: #eade10;
+  color: black;
+  fill: black;
+}
+
+.message-removed {
+  animation: 170ms slide-out ease-in-out;
+}
+
+@keyframes slide-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    margin-top: -2em;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    margin-top: -2em;
+  }
+  to {
+    opacity: 1;
+  }
 }

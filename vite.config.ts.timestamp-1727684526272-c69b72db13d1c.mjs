@@ -2,9 +2,7 @@
 import { sveltekit } from "file:///home/neosahadeo/Documents/Projects/Helios3/node_modules/.pnpm/@sveltejs+kit@2.6.1_@sveltejs+vite-plugin-svelte@3.1.2_svelte@4.2.19_vite@5.4.8_@types+node@2_qgjvew2vnjzatads6yrnl22mvm/node_modules/@sveltejs/kit/src/exports/vite/index.js";
 import { defineConfig } from "file:///home/neosahadeo/Documents/Projects/Helios3/node_modules/.pnpm/vite@5.4.8_@types+node@22.7.4/node_modules/vite/dist/node/index.js";
 var vite_config_default = defineConfig({
-  plugins: [sveltekit()]
+  plugins: [sveltekit()],
 });
-export {
-  vite_config_default as default
-};
+export { vite_config_default as default };
 //# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsidml0ZS5jb25maWcudHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImNvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9kaXJuYW1lID0gXCIvaG9tZS9uZW9zYWhhZGVvL0RvY3VtZW50cy9Qcm9qZWN0cy9IZWxpb3MzXCI7Y29uc3QgX192aXRlX2luamVjdGVkX29yaWdpbmFsX2ZpbGVuYW1lID0gXCIvaG9tZS9uZW9zYWhhZGVvL0RvY3VtZW50cy9Qcm9qZWN0cy9IZWxpb3MzL3ZpdGUuY29uZmlnLnRzXCI7Y29uc3QgX192aXRlX2luamVjdGVkX29yaWdpbmFsX2ltcG9ydF9tZXRhX3VybCA9IFwiZmlsZTovLy9ob21lL25lb3NhaGFkZW8vRG9jdW1lbnRzL1Byb2plY3RzL0hlbGlvczMvdml0ZS5jb25maWcudHNcIjtpbXBvcnQgeyBzdmVsdGVraXQgfSBmcm9tICdAc3ZlbHRlanMva2l0L3ZpdGUnO1xuaW1wb3J0IHsgZGVmaW5lQ29uZmlnIH0gZnJvbSAndml0ZSc7XG5cbmV4cG9ydCBkZWZhdWx0IGRlZmluZUNvbmZpZyh7XG5cdHBsdWdpbnM6IFtzdmVsdGVraXQoKV1cbn0pO1xuIl0sCiAgIm1hcHBpbmdzIjogIjtBQUFtVCxTQUFTLGlCQUFpQjtBQUM3VSxTQUFTLG9CQUFvQjtBQUU3QixJQUFPLHNCQUFRLGFBQWE7QUFBQSxFQUMzQixTQUFTLENBQUMsVUFBVSxDQUFDO0FBQ3RCLENBQUM7IiwKICAibmFtZXMiOiBbXQp9Cg==

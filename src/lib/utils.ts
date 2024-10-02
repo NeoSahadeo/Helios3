@@ -1,4 +1,5 @@
 import { base } from "$app/paths";
+import { notify } from "./store";
 
 export interface Password_Object {
   created: string;
@@ -99,6 +100,17 @@ async function password_crud(
     if (response.ok) {
       const json_response = await response.json();
       console.log(json_response);
+      if (json_response.error) {
+        notify.send({
+          message: json_response.error,
+          type: "error",
+        });
+      } else {
+        notify.send({
+          message: json_response.success,
+          type: "success",
+        });
+      }
       return json_response;
     }
     return undefined;
@@ -118,4 +130,9 @@ export async function edit_password(formData: FormData) {
 
 export async function create_password(formData: FormData) {
   return password_crud(formData, "post");
+}
+
+export async function refresh() {
+  // periodically check the validity of the session
+  // periodically check for password
 }

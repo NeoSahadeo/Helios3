@@ -1,1 +1,44 @@
-.password-container{width:100%;background-color:#121212;padding:.6em .4em;outline:.1em solid #060606}details summary{min-height:1.4em;list-style:none;cursor:pointer;transition:margin .1s ease-in-out}details[open] summary{margin-bottom:10px}details summary::marker{width:0px}form{display:flex;flex-direction:column}form input{width:-moz-fit-content;width:fit-content;background:transparent;color:#fff}form textarea{background-color:transparent}.logo h1{font-size:2.3em!important}.logo span{position:absolute;font-size:.2em!important;margin-top:-3em!important}main{display:flex;flex-direction:column;width:100%}
+.password-container {
+  width: 100%;
+  background-color: #121212;
+  padding: 0.6em 0.4em;
+  outline: 0.1em solid #060606;
+}
+details summary {
+  min-height: 1.4em;
+  list-style: none;
+  cursor: pointer;
+  transition: margin 0.1s ease-in-out;
+}
+details[open] summary {
+  margin-bottom: 10px;
+}
+details summary::marker {
+  width: 0px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+form input {
+  width: -moz-fit-content;
+  width: fit-content;
+  background: transparent;
+  color: #fff;
+}
+form textarea {
+  background-color: transparent;
+}
+.logo h1 {
+  font-size: 2.3em !important;
+}
+.logo span {
+  position: absolute;
+  font-size: 0.2em !important;
+  margin-top: -3em !important;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

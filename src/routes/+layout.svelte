@@ -6,7 +6,7 @@
   import Notification from "$lib/components/notification.svelte";
 
   let loading = true;
-  onMount(async()=>{
+  onMount(async () => {
     // start loading
     const _loggedin = await is_loggedin();
 
@@ -16,18 +16,16 @@
     const local_url = url_resolver("local");
     if (_loggedin) {
       if (window.location.href == local_url)
-      window.location.href = local_url + "home"
+        window.location.href = local_url + "home";
     } else {
-      if (window.location.href != local_url)
-      window.location.href = local_url
+      if (window.location.href != local_url) window.location.href = local_url;
     }
-  })
+  });
 </script>
 
 <Notification />
 {#if loading}
-<Loading />
+  <Loading />
 {:else}
-<slot />
-
+  <slot />
 {/if}

@@ -1,49 +1,73 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="./favicon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		
-		<link href="./_app/immutable/assets/0.xY2jwOkZ.css" rel="stylesheet">
-		<link href="./_app/immutable/assets/3.DZjwzRGy.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.DNuBUHyt.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/entry.DmdCY1w9.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.Ce_0Mfso.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/paths.DJJFl3Fx.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.BlYq2Ei6.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.BEC4av9B.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.D57oRKE7.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/utils.D2i4nqSq.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/3.BIMj5VW6.js">
-	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">  <div id="notify-container" class="svelte-pzqj0"><div class="notify" data-svelte-h="svelte-ijqjpk">This is a notification</div></div> <div id="loading" class="svelte-1oo8a4x" data-svelte-h="svelte-1uiyadt"><p>Helios3 is loading...</p> <p>[Log]:</p></div> 
-			
-			<script>
-				{
-					__sveltekit_1v5vpbu = {
-						base: new URL(".", location).pathname.slice(0, -1),
-						assets: "/https://neosahadeo.github.io/Helios3"
-					};
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-					const element = document.currentScript.parentElement;
+    <link href="./_app/immutable/assets/0.xY2jwOkZ.css" rel="stylesheet" />
+    <link href="./_app/immutable/assets/3.DZjwzRGy.css" rel="stylesheet" />
+    <link rel="modulepreload" href="./_app/immutable/entry/start.DNuBUHyt.js" />
+    <link
+      rel="modulepreload"
+      href="./_app/immutable/chunks/entry.DmdCY1w9.js"
+    />
+    <link
+      rel="modulepreload"
+      href="./_app/immutable/chunks/scheduler.Ce_0Mfso.js"
+    />
+    <link
+      rel="modulepreload"
+      href="./_app/immutable/chunks/paths.DJJFl3Fx.js"
+    />
+    <link rel="modulepreload" href="./_app/immutable/entry/app.BlYq2Ei6.js" />
+    <link
+      rel="modulepreload"
+      href="./_app/immutable/chunks/index.BEC4av9B.js"
+    />
+    <link rel="modulepreload" href="./_app/immutable/nodes/0.D57oRKE7.js" />
+    <link
+      rel="modulepreload"
+      href="./_app/immutable/chunks/utils.D2i4nqSq.js"
+    />
+    <link rel="modulepreload" href="./_app/immutable/nodes/3.BIMj5VW6.js" />
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">
+      <div id="notify-container" class="svelte-pzqj0">
+        <div class="notify" data-svelte-h="svelte-ijqjpk">
+          This is a notification
+        </div>
+      </div>
+      <div id="loading" class="svelte-1oo8a4x" data-svelte-h="svelte-1uiyadt">
+        <p>Helios3 is loading...</p>
+        <p>[Log]:</p>
+      </div>
 
-					const data = [null,null];
+      <script>
+        {
+          __sveltekit_1v5vpbu = {
+            base: new URL(".", location).pathname.slice(0, -1),
+            assets: "/https://neosahadeo.github.io/Helios3",
+          };
 
-					Promise.all([
-						import("./_app/immutable/entry/start.DNuBUHyt.js"),
-						import("./_app/immutable/entry/app.BlYq2Ei6.js")
-					]).then(([kit, app]) => {
-						kit.start(app, element, {
-							node_ids: [0, 3],
-							data,
-							form: null,
-							error: null
-						});
-					});
-				}
-			</script>
-		</div>
-	</body>
+          const element = document.currentScript.parentElement;
+
+          const data = [null, null];
+
+          Promise.all([
+            import("./_app/immutable/entry/start.DNuBUHyt.js"),
+            import("./_app/immutable/entry/app.BlYq2Ei6.js"),
+          ]).then(([kit, app]) => {
+            kit.start(app, element, {
+              node_ids: [0, 3],
+              data,
+              form: null,
+              error: null,
+            });
+          });
+        }
+      </script>
+    </div>
+  </body>
 </html>

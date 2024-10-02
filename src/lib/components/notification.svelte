@@ -1,18 +1,31 @@
 <script lang="ts">
-	import "../notfiy"
-	import Notify from "./notify.svelte";
+  import Notify from "./notify.svelte";
+  import type { MessageType } from "$lib/store";
+  import { notify } from "$lib/store";
+
+  //<Notify message="Updated password" id={1} type={"success"} dismissable={true}/>
 </script>
 
-<style>
-	#notify-container {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		background-color: red;
-	}
-</style>
-
 <div id="notify-container">
-<Notify />
+  {#each $notify as message}
+    <Notify
+      message={message.message}
+      id={message.id}
+      type={message.type}
+      dismissable={message.dismissable}
+    />
+  {/each}
 </div>
+
+<style>
+  #notify-container {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin: 1em 1em 0 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+  }
+</style>
