@@ -17,6 +17,7 @@
     show_spinner = true;
 
     const formData = new FormData(event.target);
+
     try {
       const response = await fetch(url_resolver("api") + "login", {
         method: "post",
@@ -35,7 +36,14 @@
             message: "Login Successful",
             type: "success",
           });
-          localStorage.setItem("helios3token", json_response.token);
+
+          // check if session should be saved
+          if (formData.get("session") === "on") {
+            localStorage.setItem("helios3token", json_response.token);
+          } else {
+            sessionStorage.setItem("helios3token", json_response.token);
+          }
+
           setTimeout(() => {
             window.location.href = "home";
           }, 500);

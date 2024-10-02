@@ -13,8 +13,22 @@ export interface Password_Object {
   username: string;
 }
 
+export function get_token(): string | null {
+  let token = localStorage.getItem("helios3token");
+  if (token) return token;
+
+  token = sessionStorage.getItem("helios3token");
+  if (token) return token;
+
+  return null;
+}
+export function remove_token() {
+  sessionStorage.removeItem("helios3token");
+  localStorage.removeItem("helios3token");
+}
+
 export async function fetch_passwords() {
-  const token = localStorage.getItem("helios3token");
+  const token = get_token();
   if (token == null) {
     return undefined;
   }
@@ -60,7 +74,7 @@ export function url_resolver(_type: "api" | "local"): string {
 }
 
 export async function is_loggedin() {
-  const token = localStorage.getItem("helios3token");
+  const token = get_token();
   if (!token) {
     return false;
   }
@@ -73,7 +87,7 @@ export async function is_loggedin() {
     if (response.ok) {
       return true;
     } else {
-      localStorage.removeItem("helios3token");
+      remove_token();
       return false;
     }
   } catch (error) {
@@ -85,7 +99,7 @@ async function password_crud(
   formData: FormData,
   method: "put" | "get" | "post" | "delete",
 ): Promise<undefined | Password_Object> {
-  const token = localStorage.getItem("helios3token");
+  const token = get_token();
   if (!token) {
     return undefined;
   }

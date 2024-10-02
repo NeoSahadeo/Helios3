@@ -3,7 +3,7 @@
   flex-direction: row;
   gap: 1em;
   align-items: center;
-  word-break: break-all;
+  word-break: break-word;
   padding: 0.7em 1em;
   border-radius: 0.135em;
   font-weight: bold;

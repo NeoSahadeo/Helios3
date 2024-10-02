@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Password_Object } from "$lib/utils";
   import Password from "$lib/components/password.svelte";
+  import Header from "$lib/components/header.svelte";
   import { fetch_passwords } from "$lib/utils";
   import { onMount } from "svelte";
   import "./home.css";
@@ -12,12 +13,8 @@
   });
 </script>
 
-<header>
-  <div class="logo ml-2">
-    <h1>Helios 3</h1>
-  </div>
-</header>
-<main class="mt-3">
+<Header />
+<main class="mt-1">
   {#each passwords as password}
     <Password _password={password} />
   {/each}
