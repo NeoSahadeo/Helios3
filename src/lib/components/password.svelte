@@ -1,26 +1,29 @@
 <script lang="ts">
 	import './password.css'
-	import { delete_password } from '$lib/utils'
-	export let _password: {
-		created: string,
-		email: string,
-		id: number,
-		nickname: string,
-		notes: string,
-		password: string,
-		site_name: string,
-		site_url: string,
-		username: string,
-	}
+	import { delete_password, edit_password } from '$lib/utils'
+	import type { Password_Object } from '$lib/utils'
 
-	async function delete_form(event: any) {
+	export let _password: Password_Object
+
+	async function delete_form(event: SubmitEvent) {
+		//@ts-ignore
 		const formData = new FormData(event.target)
 		const repsonse = await delete_password(formData)
-		if (repsonse){
+		if (repsonse != undefined){
 			//@ts-ignore
 			document.getElementById(formData.get('id')).remove()
 		}
 	}
+
+	async function edit_form(event: SubmitEvent){
+		//@ts-ignore
+		const formData = new FormData(event.target)
+		const repsonse = await edit_password(formData)
+		if (repsonse != undefined){
+			//@ts-ignore
+		}
+	}
+
 </script>
 <details class="password-container" id="{_password.id.toString()}">
 	<summary>
@@ -33,31 +36,19 @@
 			</tr>
 		</table>
 	</summary>
-	<table>
-		<tr>
-			<td>{_password.created}</td>
-		</tr>
-		<tr>
-			<td>{_password.email}</td>
-		</tr>
-		<tr>
-			<td>{_password.nickname}</td>
-		</tr>
-		<tr>
-			<td>{_password.password}</td>
-		</tr>
-		<tr>
-			<td>{_password.site_name}</td>
-		</tr>
-		<tr>
-			<td>{_password.site_url}</td>
-		</tr>
-		<tr>
-			<td>{_password.notes}</td>
-		</tr>
-	</table>
 	<form on:submit|preventDefault={delete_form}>
 		<input name="id" value="{_password.id.toString()}" hidden>
 		<input type="submit" value="Delete">
+	</form>
+	<form on:submit|preventDefault={edit_form}>
+		<input name="id" value="{_password.id.toString()}" hidden>
+		<input type="submit" value="Edit">
+		<input name="username" value={_password.username} placeholder="Username">
+		<input name="password" value={_password.password} placeholder="Password">
+		<input name="email" value={_password.email} placeholder="Email">
+		<input name="nickname" value={_password.nickname}>
+		<textarea name="notes" placeholder="Notes">{_password.notes}</textarea>
+		<input name="site_name" value={_password.site_name} placeholder="Site Name">
+		<input name="site_url" value={_password.site_url} placeholder="Site URL">
 	</form>
 </details>

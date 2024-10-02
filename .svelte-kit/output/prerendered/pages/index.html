@@ -5,24 +5,26 @@
 		<link rel="icon" href="./favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<link href="./_app/immutable/assets/0.eYk9G3l-.css" rel="stylesheet">
-		<link href="./_app/immutable/assets/2.Nu9Jkp-F.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.D_22lpcH.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/entry.LsINLEnL.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.CtbWrGNo.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.BjqbIcNX.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.BQIJCpJ7.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.D3NU-Y99.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.BNz_zm1U.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/2.oTlhZc6C.js">
+		<link href="./_app/immutable/assets/0.xY2jwOkZ.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/2.D9YxhOjV.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.DNuBUHyt.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.DmdCY1w9.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.Ce_0Mfso.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/paths.DJJFl3Fx.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.BlYq2Ei6.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.BEC4av9B.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.D57oRKE7.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/utils.D2i4nqSq.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/2.CZe306nB.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">  <div class="logo rounded-md shadow-lg"><h1 data-svelte-h="svelte-v46f9k">Helios 3</h1> <span data-svelte-h="svelte-1li5tu8">Created Neo Sahadeo</span> <form class="mt-12" id="login" data-svelte-h="svelte-i87w0r"><input type="text" name="username" placeholder="Username"> <input type="password" name="password" placeholder="Password"> <p>Remember Session?</p> <label class="switch"><input type="checkbox" name="session" id="session" checked> <span class="slider round"></span></label> <input type="submit" value="Log In"></form></div> 
+		<div style="display: contents">  <div id="notify-container" class="svelte-pzqj0"><div class="notify" data-svelte-h="svelte-ijqjpk">This is a notification</div></div> <div id="loading" class="svelte-1oo8a4x" data-svelte-h="svelte-1uiyadt"><p>Helios3 is loading...</p> <p>[Log]:</p></div> 
 			
 			<script>
 				{
-					__sveltekit_iobncg = {
-						base: new URL(".", location).pathname.slice(0, -1)
+					__sveltekit_1v5vpbu = {
+						base: new URL(".", location).pathname.slice(0, -1),
+						assets: "/https://neosahadeo.github.io/Helios3"
 					};
 
 					const element = document.currentScript.parentElement;
@@ -30,8 +32,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.D_22lpcH.js"),
-						import("./_app/immutable/entry/app.BQIJCpJ7.js")
+						import("./_app/immutable/entry/start.DNuBUHyt.js"),
+						import("./_app/immutable/entry/app.BlYq2Ei6.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2],

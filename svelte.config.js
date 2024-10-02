@@ -18,7 +18,7 @@ const config = {
     paths: {
       base:
         process.env.NODE_ENV === "production"
-          ? "https://neosahadeo.github.io/Helios3/"
+          ? "/https://neosahadeo.github.io/Helios3"
           : "",
     },
   },

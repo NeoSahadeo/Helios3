@@ -1,5 +1,17 @@
 import { base } from "$app/paths";
 
+export interface Password_Object {
+  created: string;
+  email: string;
+  id: number;
+  nickname: string;
+  notes: string;
+  password: string;
+  site_name: string;
+  site_url: string;
+  username: string;
+}
+
 export async function fetch_passwords() {
   const token = localStorage.getItem("helios3token");
   if (token == null) {
@@ -48,51 +60,62 @@ export function url_resolver(_type: "api" | "local"): string {
 
 export async function is_loggedin() {
   const token = localStorage.getItem("helios3token");
-  if (token) {
-    try {
-      const response = await fetch(url_resolver("api") + "loggedin", {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      });
-      if (response.ok) {
-        return true;
-      } else {
-        localStorage.removeItem("helios3token");
-        return false;
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  } else {
+  if (!token) {
     return false;
+  }
+  try {
+    const response = await fetch(url_resolver("api") + "loggedin", {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+    if (response.ok) {
+      return true;
+    } else {
+      localStorage.removeItem("helios3token");
+      return false;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function password_crud(
+  formData: FormData,
+  method: "put" | "get" | "post" | "delete",
+): Promise<undefined | Password_Object> {
+  const token = localStorage.getItem("helios3token");
+  if (!token) {
+    return undefined;
+  }
+  try {
+    const response = await fetch(url_resolver("api") + "passwords", {
+      method: method,
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+      body: formData,
+    });
+    if (response.ok) {
+      const json_response = await response.json();
+      console.log(json_response);
+      return json_response;
+    }
+    return undefined;
+  } catch (error) {
+    console.error(error);
+    return undefined;
   }
 }
 
 export async function delete_password(formData: FormData) {
-  const token = localStorage.getItem("helios3token");
-  if (token) {
-    try {
-      const response = await fetch(url_resolver("api") + "passwords", {
-        method: "delete",
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-        body: formData,
-      });
-      if (response.ok) {
-        console.log(await response.json());
-        return true;
-      }
-      return false;
-    } catch (error) {
-      console.error(error);
-    }
-  } else {
-    return false;
-  }
+  return password_crud(formData, "delete");
+}
+
+export async function edit_password(formData: FormData) {
+  return password_crud(formData, "put");
 }
 
 export async function create_password(formData: FormData) {
-  const token = localStorage.getItem("helios3token");
+  return password_crud(formData, "post");
 }

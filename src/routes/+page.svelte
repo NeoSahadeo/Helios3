@@ -1,6 +1,7 @@
 <script lang="ts">
 	import './login.css'
 	import { url_resolver } from '$lib/utils';
+	import { notify } from '$lib/notfiy';
 
 	async function login(event: any) {
 		const formData = new FormData(event.target)
@@ -18,6 +19,9 @@
 		}
 	}
 </script>
+<button on:click={gen_message}>
+Message
+</button>
 <div class="logo login rounded-md shadow-lg">
 	<h1>
 		Helios 3

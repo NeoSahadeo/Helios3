@@ -53,7 +53,7 @@
       "_ssr.js"
     ],
     "css": [
-      "_app/immutable/assets/_layout.eYk9G3l-.css"
+      "_app/immutable/assets/_layout.xY2jwOkZ.css"
     ]
   },
   "src/routes/+layout.ts": {
@@ -71,7 +71,7 @@
       "_ssr.js"
     ],
     "css": [
-      "_app/immutable/assets/_page.BToZahah.css"
+      "_app/immutable/assets/_page.DapbC3Zw.css"
     ]
   },
   "src/routes/home/+page.svelte": {
@@ -81,6 +81,9 @@
     "isEntry": true,
     "imports": [
       "_ssr.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.DZjwzRGy.css"
     ]
   }
 }

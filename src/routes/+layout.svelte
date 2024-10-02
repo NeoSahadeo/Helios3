@@ -3,6 +3,7 @@
   import { onMount } from "svelte";
   import { is_loggedin, url_resolver } from "$lib/utils";
   import Loading from "$lib/components/loading.svelte";
+  import Notification from "$lib/components/notification.svelte";
 
   let loading = true;
   onMount(async()=>{
@@ -23,8 +24,10 @@
   })
 </script>
 
+<Notification />
 {#if loading}
 <Loading />
 {:else}
 <slot />
+
 {/if}
