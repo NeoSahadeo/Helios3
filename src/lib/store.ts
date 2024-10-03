@@ -1,8 +1,31 @@
 import { writable } from "svelte/store";
 import type { Password_Object } from "./utils";
 
+class Modal {
+  subscribe: any;
+  set: any;
+  update: any;
+  status: boolean;
+
+  constructor() {
+    const { subscribe, set, update } = writable<any>();
+    this.subscribe = subscribe;
+    this.set = set;
+    this.update = update;
+    this.status = false;
+  }
+
+  open() {
+    this.status = true;
+    console.log(this.status);
+  }
+}
+
+export const modal = new Modal();
+
 export const passwords_store = writable<Password_Object[]>([]);
 
+// Message System Start
 export type MessageType = {
   id?: number;
   timeout_ms?: number;
@@ -57,3 +80,4 @@ class Notify {
 }
 
 export const notify = new Notify();
+// Message System END

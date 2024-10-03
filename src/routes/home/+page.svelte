@@ -9,7 +9,7 @@
   let passwords: Password_Object[] = [];
   onMount(async () => {
     passwords = await fetch_passwords();
-    console.log(passwords);
+    //console.log(passwords);
   });
 </script>
 

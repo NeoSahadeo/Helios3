@@ -4,6 +4,7 @@
   import { is_loggedin, url_resolver } from "$lib/utils";
   import Loading from "$lib/components/loading.svelte";
   import Notification from "$lib/components/notification.svelte";
+  import Modal from "$lib/components/modal.svelte";
 
   let loading = true;
   onMount(async () => {
@@ -24,6 +25,7 @@
 </script>
 
 <Notification />
+<Modal />
 {#if loading}
   <Loading />
 {:else}

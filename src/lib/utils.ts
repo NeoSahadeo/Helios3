@@ -113,7 +113,7 @@ async function password_crud(
     });
     if (response.ok) {
       const json_response = await response.json();
-      console.log(json_response);
+      //console.log(json_response);
       if (json_response.error) {
         notify.send({
           message: json_response.error,

@@ -1,6 +1,5 @@
 <script lang="ts">
   import LoadingSpinner from "./loadingSpinner.svelte";
-  console.profile();
 </script>
 
 <div id="loading" class="m-auto flex item-center justify-center flex-col">
