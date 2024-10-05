@@ -1,10 +1,13 @@
 <script lang="ts">
-  function create() {}
+  import { modal } from "$lib/store";
+  function create() {
+    modal.open();
+  }
 </script>
 
 <form id="logout" on:submit|preventDefault={create}>
   <button
-    class="flex flex-row gap-1 items-center px-2 py-2 mr-2 rounded hover:bg-blue-600 transition-all"
+    class="flex flex-row gap-1 items-center px-2 py-2 mr-2 rounded hover:bg-blue-600 transition-all justify-center"
   >
     Create
     <svg

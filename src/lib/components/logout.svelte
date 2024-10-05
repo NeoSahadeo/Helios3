@@ -42,7 +42,7 @@
 
 <form id="logout" on:submit|preventDefault={logout}>
   <button
-    class="flex flex-row gap-1 items-center px-2 py-2 mr-2 rounded hover:bg-red-700 transition-all"
+    class="flex flex-row gap-1 items-center px-2 py-2 mr-2 rounded hover:bg-red-700 transition-all justify-center"
   >
     Log Out
 

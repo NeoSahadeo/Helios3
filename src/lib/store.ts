@@ -5,19 +5,21 @@ class Modal {
   subscribe: any;
   set: any;
   update: any;
-  status: boolean;
+  content: any;
 
   constructor() {
     const { subscribe, set, update } = writable<any>();
     this.subscribe = subscribe;
     this.set = set;
     this.update = update;
-    this.status = false;
+    this.content = null;
   }
 
   open() {
-    this.status = true;
-    console.log(this.status);
+    this.set(true);
+  }
+  close() {
+    this.set(false);
   }
 }
 

@@ -5,17 +5,16 @@
   import { fetch_passwords } from "$lib/utils";
   import { onMount } from "svelte";
   import "./home.css";
+  import { passwords_store } from "$lib/store";
 
-  let passwords: Password_Object[] = [];
   onMount(async () => {
-    passwords = await fetch_passwords();
-    //console.log(passwords);
+    passwords_store.set(await fetch_passwords());
   });
 </script>
 
 <Header />
 <main class="mt-1">
-  {#each passwords as password}
+  {#each $passwords_store as password}
     <Password _password={password} />
   {/each}
 </main>

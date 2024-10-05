@@ -20,10 +20,10 @@
 <style>
   #notify-container {
     position: absolute;
-    top: 0px;
+    bottom: 0px;
     right: 0px;
-    margin: 1em 1em 0 0;
-    z-index: 10;
+    margin: 0em 1em 1em 0;
+    z-index: 999;
     display: flex;
     flex-direction: column;
     gap: 0.3em;

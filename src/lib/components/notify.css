@@ -41,14 +41,12 @@
   }
   to {
     opacity: 0;
-    margin-top: -2em;
   }
 }
 
 @keyframes slide-in {
   from {
     opacity: 0;
-    margin-top: -2em;
   }
   to {
     opacity: 1;

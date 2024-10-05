@@ -1,5 +1,6 @@
 import { base } from "$app/paths";
 import { notify } from "./store";
+import { passwords_store } from "./store";
 
 export interface Password_Object {
   created: string;
@@ -104,22 +105,34 @@ async function password_crud(
     return undefined;
   }
   try {
-    const response = await fetch(url_resolver("api") + "passwords", {
-      method: method,
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-      body: formData,
-    });
+    let response;
+    if (method !== "get") {
+      response = await fetch(url_resolver("api") + "passwords", {
+        method: method,
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+        body: formData,
+      });
+    } else {
+      response = await fetch(
+        url_resolver("api") + `passwords?q=${formData.get("q")}`,
+        {
+          method: method,
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        },
+      );
+    }
     if (response.ok) {
       const json_response = await response.json();
-      //console.log(json_response);
       if (json_response.error) {
         notify.send({
           message: json_response.error,
           type: "error",
         });
-      } else {
+      } else if (method !== "get") {
         notify.send({
           message: json_response.success,
           type: "success",
@@ -146,7 +159,13 @@ export async function create_password(formData: FormData) {
   return password_crud(formData, "post");
 }
 
+export async function search(formData: FormData) {
+  return password_crud(formData, "get");
+}
+
 export async function refresh() {
   // periodically check the validity of the session
   // periodically check for password
+  const passwords = await fetch_passwords();
+  passwords_store.set(passwords);
 }
