@@ -7,13 +7,17 @@
 
   //@ts-ignore
   let _password: Password_Object = {},
-    _dialog: HTMLDialogElement;
+    _dialog: HTMLDialogElement,
+    _form: HTMLFormElement,
+    _generated_password: string;
 
   // Close modal
   const close_modal = () => {
-    confirm("Are you sure you want to close this form?")
-      ? modal.close()
-      : modal.open();
+    if (confirm("Are you sure you want to close this form?")) {
+      modal.close();
+      //@ts-ignore
+      _password = {};
+    }
   };
 
   // Update modal
@@ -26,17 +30,25 @@
   // create password
   const save_form = async (event: any) => {
     const formData = new FormData(event.target);
-    await create_password(formData);
+    const response = await create_password(formData);
     passwords_store.set(await fetch_passwords());
+
+    //@ts-ignore
+    _password = {};
     modal.close();
   };
 </script>
 
 <dialog class="items-center justify-center flex-col" bind:this={_dialog}>
   <div
-    class="flex flex-col bg-gray-900 px-4 py-2 pb-5 sm:rounded w-full sm:max-w-lg sm:h-auto h-full"
+    style="background-color: #070707;"
+    class="flex flex-col px-4 py-2 pb-5 sm:rounded w-full sm:max-w-lg sm:h-auto h-full"
   >
-    <form class="flex flex-col" on:submit|preventDefault={save_form}>
+    <form
+      bind:this={_form}
+      class="flex flex-col"
+      on:submit|preventDefault={save_form}
+    >
       <h1 class="text-lg underline font-bold">Create a password</h1>
       <input
         name="username"
@@ -68,10 +80,13 @@
         bind:value={_password.site_url}
         placeholder="Site URL"
       />
-      <button class="bg-blue-600 max-w-32 rounded mt-4">Create</button>
+      <button
+        class="bg-blue-600 max-w-32 rounded mt-4 py-3 md:py-2 hover:bg-blue-900"
+        >Create</button
+      >
     </form>
     <button
-      class="bg-gray-600 max-w-32 rounded px-3 mt-4"
+      class="bg-red-600 max-w-32 rounded px-3 py-3 md:py-2 mt-4 hover:bg-red-900"
       on:click={close_modal}>Close</button
     >
   </div>
@@ -83,8 +98,20 @@
     z-index: 20;
     width: 100%;
     height: 100%;
+    position: fixed;
   }
-  dialog::backdrop {
-    background-color: red;
+  form input,
+  form textarea {
+    outline: 0px solid gray;
+    width: 100%;
+    padding: 0.2em 0.5em;
+    border-radius: 0.135em;
+    background-color: black;
+  }
+  form input:hover,
+  form textarea:hover,
+  form input:focus,
+  form textarea:focus {
+    outline: 1px solid gray;
   }
 </style>

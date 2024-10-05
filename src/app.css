@@ -5,6 +5,7 @@
 * {
   margin: 0px;
   color: white;
+  box-sizing: border-box;
 }
 
 body {

@@ -19,7 +19,7 @@
 
 <style>
   #notify-container {
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     right: 0px;
     margin: 0em 1em 1em 0;

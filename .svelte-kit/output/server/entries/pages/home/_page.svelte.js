@@ -1,29 +1,49 @@
-import {
-  c as create_ssr_component,
-  d as add_attribute,
-  e as escape,
-  f as each,
-  v as validate_component,
-} from "../../../chunks/ssr.js";
-const Password = create_ssr_component(
-  ($$result, $$props, $$bindings, slots) => {
-    let { _password } = $$props;
-    if (
-      $$props._password === void 0 &&
-      $$bindings._password &&
-      _password !== void 0
-    )
-      $$bindings._password(_password);
-    return `<details class="password-container"${add_attribute("id", _password.id.toString(), 0)}><summary><table><tr><td>${escape(_password.nickname)}</td></tr> <tr><td>${escape(_password.site_name)}</td></tr></table></summary> <form><input name="id"${add_attribute("value", _password.id.toString(), 0)} hidden> <input type="submit" value="Delete"></form> <form><input name="id"${add_attribute("value", _password.id.toString(), 0)} hidden> <input type="submit" value="Edit"> <input name="username"${add_attribute("value", _password.username, 0)} placeholder="Username"> <input name="password"${add_attribute("value", _password.password, 0)} placeholder="Password"> <input name="email"${add_attribute("value", _password.email, 0)} placeholder="Email"> <input name="nickname"${add_attribute("value", _password.nickname, 0)}> <textarea name="notes" placeholder="Notes">${escape(_password.notes, false)}</textarea> <input name="site_name"${add_attribute("value", _password.site_name, 0)} placeholder="Site Name"> <input name="site_url"${add_attribute("value", _password.site_url, 0)} placeholder="Site URL"></form></details>`;
-  },
-);
-const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let passwords = [];
-  return `<header data-svelte-h="svelte-1ind219"><div class="logo ml-2"><h1>Helios 3</h1> <span>Created Neo Sahadeo</span></div></header> <main class="mt-8">${each(
-    passwords,
-    (password) => {
-      return `${validate_component(Password, "Password").$$render($$result, { _password: password }, {}, {})}`;
-    },
-  )}</main>`;
+import { c as create_ssr_component, a as add_attribute, e as escape, v as validate_component, b as subscribe, d as each } from "../../../chunks/ssr.js";
+import { p as passwords_store } from "../../../chunks/store.js";
+const Password = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let { _password } = $$props;
+  stringify_password();
+  function stringify_password() {
+    return JSON.parse(JSON.stringify(_password));
+  }
+  if ($$props._password === void 0 && $$bindings._password && _password !== void 0) $$bindings._password(_password);
+  return `<details class="password-container"${add_attribute("id", _password.id.toString(), 0)}><summary><table><tr class="flex flex-row gap-2"><td>${escape(_password.nickname)}</td> ${_password.site_name ? `<td>(<a target="_blank"${add_attribute("href", _password.site_url, 0)} class="text-blue-400">${escape(_password.site_name)}</a>)</td>` : ``}</tr></table></summary> <h1 class="text-lg font-bold underline" data-svelte-h="svelte-cbjuyp">Contents</h1> <form><input name="id"${add_attribute("value", _password.id.toString(), 0)} hidden> <input name="username" placeholder="Username"${add_attribute("value", _password.username, 0)}> <div class="flex">${`<input name="password" placeholder="Password" type="password"${add_attribute("value", _password.password, 0)}>`} <button>${`<svg xmlns="http://www.w3.org/2000/svg" width="1.7em" height="1.7em" viewBox="0 0 24 24"><path fill="white" d="M14.33 7.17A16 16 0 0 0 12 7c-4.97 0-9 2.239-9 5c0 1.44 1.096 2.738 2.85 3.65l2.362-2.362a4 4 0 0 1 5.076-5.076zm-3.1 8.756q.375.074.77.074a4 4 0 0 0 3.926-4.77l2.647-2.646C20.078 9.478 21 10.68 21 12c0 2.761-4.03 5-9 5q-.899 0-1.749-.094zm6.563-10.719a1 1 0 1 1 1.414 1.414L6.48 19.35a1 1 0 1 1-1.414-1.414z"></path></svg>`}</button></div> <input name="email" placeholder="Email"${add_attribute("value", _password.email, 0)}> <input name="nickname" placeholder="Nickname"${add_attribute("value", _password.nickname, 0)}> <textarea name="notes" placeholder="Notes">${escape(_password.notes || "")}</textarea> <input name="site_name" placeholder="Site Name"${add_attribute("value", _password.site_name, 0)}> <input name="site_url" placeholder="Site URL"${add_attribute("value", _password.site_url, 0)}> <div class="flex flex-row ml-auto gap-3">${``} <form><input name="id"${add_attribute("value", _password.id.toString(), 0)} hidden> <input type="submit" value="Delete"></form></div></form></details>`;
 });
-export { Page as default };
+const Logout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `<form id="logout" data-svelte-h="svelte-b9om06"><button class="flex flex-row gap-1 items-center px-2 py-2 mr-2 rounded hover:bg-red-700 transition-all justify-center">Log Out
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.7em" height="1.7em" viewBox="0 0 24 24"><path fill="white" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h7v2H5v14h7v2zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5z"></path></svg></button></form>`;
+});
+const CreateButton = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `<form id="logout" data-svelte-h="svelte-biaej9"><button class="flex flex-row gap-1 items-center px-2 py-2 mr-2 rounded hover:bg-blue-600 transition-all justify-center">Create
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.7em" height="1.7em" viewBox="0 0 24 24"><path fill="white" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z"></path></svg></button></form>`;
+});
+const css$1 = {
+  code: "input.svelte-m6jyt9{border:0px;outline:1px solid grey;transition:0.3s all}input.svelte-m6jyt9:hover,input.svelte-m6jyt9:focus{border:0px;outline:1px solid gold}",
+  map: '{"version":3,"file":"search.svelte","sources":["search.svelte"],"sourcesContent":["<script lang=\\"ts\\">import { passwords_store } from \\"$lib/store\\";\\nimport { search } from \\"$lib/utils\\";\\nimport { notify } from \\"$lib/store\\";\\nconst search_form = async (event) => {\\n  notify.send({\\n    message: \\"Searching...\\"\\n  });\\n  const formData = new FormData(event.target);\\n  passwords_store.set(await search(formData));\\n};\\n<\/script>\\n\\n<form class=\\"md:mr-3\\" method=\\"get\\" on:submit|preventDefault={search_form}>\\n  <input\\n    name=\\"q\\"\\n    type=\\"text\\"\\n    placeholder=\\"Search\\"\\n    class=\\"md:rounded pl-3 py-2 my-auto\\"\\n  />\\n</form>\\n\\n<style>\\n  input {\\n    border: 0px;\\n    outline: 1px solid grey;\\n    transition: 0.3s all;\\n  }\\n  input:hover,\\n  input:focus {\\n    border: 0px;\\n    outline: 1px solid gold;\\n  }\\n</style>\\n"],"names":[],"mappings":"AAsBE,mBAAM,CACJ,MAAM,CAAE,GAAG,CACX,OAAO,CAAE,GAAG,CAAC,KAAK,CAAC,IAAI,CACvB,UAAU,CAAE,IAAI,CAAC,GACnB,CACA,mBAAK,MAAM,CACX,mBAAK,MAAO,CACV,MAAM,CAAE,GAAG,CACX,OAAO,CAAE,GAAG,CAAC,KAAK,CAAC,IACrB"}'
+};
+const Search = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  $$result.css.add(css$1);
+  return `<form class="md:mr-3" method="get" data-svelte-h="svelte-102y7n2"><input name="q" type="text" placeholder="Search" class="md:rounded pl-3 py-2 my-auto svelte-m6jyt9"> </form>`;
+});
+const css = {
+  code: "header.svelte-132iyw2,#search-bar.svelte-132iyw2{background-color:#070707}",
+  map: '{"version":3,"file":"header.svelte","sources":["header.svelte"],"sourcesContent":["<script lang=\\"ts\\">import Logout from \\"./logout.svelte\\";\\nimport CreateButton from \\"./createButton.svelte\\";\\nimport Search from \\"./search.svelte\\";\\nlet is_open = false, mobile_menu;\\nconst toggle_menu = () => {\\n  is_open = !is_open;\\n  if (is_open) {\\n    document.body.style.overflow = \\"hidden\\";\\n    mobile_menu.style.display = \\"flex\\";\\n  } else {\\n    document.body.style.overflow = \\"\\";\\n    mobile_menu.style.display = \\"none\\";\\n  }\\n};\\n<\/script>\\n\\n<header class=\\"flex flex-row items-center fixed w-full shadow\\">\\n  <div class=\\"logo ml-2\\">\\n    <h1>Helios 3</h1>\\n  </div>\\n  <div class=\\"ml-auto hidden flex-row gap-1 md:flex\\">\\n    <Search />\\n    <CreateButton />\\n    <Logout />\\n  </div>\\n  <div\\n    bind:this={mobile_menu}\\n    class=\\"md:hidden flex-col gap-6 px-3 py-3 pt-12 pr-16 absolute top-0 left-0 w-screen h-screen bg-black text-lg\\"\\n    style=\\"display: none;\\"\\n  >\\n    <CreateButton />\\n    <Logout />\\n  </div>\\n  <div class=\\"ml-auto mr-3 flex md:hidden z-10\\">\\n    <button on:click={toggle_menu} class=\\"transition-all\\">\\n      {#if !is_open}\\n        <svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"3em\\" viewBox=\\"0 0 48 48\\">\\n          <path\\n            fill=\\"none\\"\\n            stroke=\\"white\\"\\n            stroke-linecap=\\"round\\"\\n            stroke-linejoin=\\"round\\"\\n            stroke-width=\\"4\\"\\n            d=\\"M7.95 11.95h32m-32 12h32m-32 12h32\\"\\n          />\\n        </svg>\\n      {:else}\\n        <svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"3em\\" viewBox=\\"0 0 24 24\\">\\n          <path\\n            fill=\\"white\\"\\n            d=\\"M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z\\"\\n          />\\n        </svg>\\n      {/if}\\n    </button>\\n  </div>\\n</header>\\n{#if !is_open}\\n  <div class=\\"md:hidden fixed w-screen top-14 shadow-lg\\" id=\\"search-bar\\">\\n    <Search />\\n  </div>\\n{/if}\\n\\n<style>\\n  header,\\n  #search-bar {\\n    background-color: #070707;\\n  }\\n</style>\\n"],"names":[],"mappings":"AAgEE,qBAAM,CACN,0BAAY,CACV,gBAAgB,CAAE,OACpB"}'
+};
+const Header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let mobile_menu;
+  $$result.css.add(css);
+  return `<header class="flex flex-row items-center fixed w-full shadow svelte-132iyw2"><div class="logo ml-2" data-svelte-h="svelte-16eusuu"><h1>Helios 3</h1></div> <div class="ml-auto hidden flex-row gap-1 md:flex">${validate_component(Search, "Search").$$render($$result, {}, {}, {})} ${validate_component(CreateButton, "CreateButton").$$render($$result, {}, {}, {})} ${validate_component(Logout, "Logout").$$render($$result, {}, {}, {})}</div> <div class="md:hidden flex-col gap-6 px-3 py-3 pt-12 pr-16 absolute top-0 left-0 w-screen h-screen bg-black text-lg" style="display: none;"${add_attribute("this", mobile_menu, 0)}>${validate_component(CreateButton, "CreateButton").$$render($$result, {}, {}, {})} ${validate_component(Logout, "Logout").$$render($$result, {}, {}, {})}</div> <div class="ml-auto mr-3 flex md:hidden z-10"><button class="transition-all">${`<svg xmlns="http://www.w3.org/2000/svg" width="3em" viewBox="0 0 48 48"><path fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M7.95 11.95h32m-32 12h32m-32 12h32"></path></svg>`}</button></div></header> ${`<div class="md:hidden fixed w-screen top-14 shadow-lg svelte-132iyw2" id="search-bar">${validate_component(Search, "Search").$$render($$result, {}, {}, {})}</div>`}`;
+});
+const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $passwords_store, $$unsubscribe_passwords_store;
+  $$unsubscribe_passwords_store = subscribe(passwords_store, (value) => $passwords_store = value);
+  let spacer;
+  $$unsubscribe_passwords_store();
+  return `${validate_component(Header, "Header").$$render($$result, {}, {}, {})} <div${add_attribute("this", spacer, 0)}></div> <main>${each($passwords_store, (password) => {
+    return `${validate_component(Password, "Password").$$render($$result, { _password: password }, {}, {})}`;
+  })} ${$passwords_store.length == 0 ? `<div class="flex flex-row gap-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" data-svelte-h="svelte-yoaq9w"><svg xmlns="http://www.w3.org/2000/svg" width="1.7em" height="1.7em" viewBox="0 0 512 512"><path fill="white" d="M406.125 63.5a44.3 44.3 0 0 0-8.22.75c-.77.143-1.53.317-2.28.5c31.724 13.294 45.583 80.38 32.938 128.75c-27.244-19-52.83-48.975-69.125-85.594c-3.936 17.603-3.088 38.91 3.562 61.063c14.06 46.84 49.064 81.22 81.438 82.03c2.413 7.61 3.62 15.377 3.062 22.094c-.574 6.91-2.73 12.567-6.75 16.937c-2.736 2.975-6.457 5.54-11.813 7.345c-11.156-26.96-54.428-49.023-111.875-58.406l7.782-26.94c8.59-1.858 15.03-9.477 15.03-18.624c0-10.544-8.55-19.094-19.093-19.094s-19.092 8.55-19.092 19.094c0 5.097 2.025 9.708 5.28 13.125l-8.656 29.907a396 396 0 0 0-43.062-2.343c-12.62 0-24.942.588-36.813 1.687l-8.312-28.75c4.017-3.5 6.563-8.628 6.563-14.374c0-10.544-8.55-19.062-19.094-19.062s-19.094 8.518-19.094 19.062c0 8.508 5.56 15.72 13.25 18.188l7.875 27.187c-60.053 8.706-105.796 31.093-117.78 58.72c-6.512.095-11.185-1.353-14.72-3.5c-4.69-2.85-7.91-7.31-10-13.53c-1.948-5.8-2.573-13.033-2.094-20.533c30.84 5.723 70.265-21.42 91.19-64.125c7.964-16.257 12.164-32.583 12.874-47.406c-22.317 26.172-51.152 45.68-79.5 56.5c-2.78-45.638 26.937-103.885 62.53-103.687c.704.003 1.42.043 2.126.093a39.45 39.45 0 0 0-14.563-9.282c-4.936-1.79-10.156-2.61-15.562-2.56c-29.19.264-63.354 26.15-82.313 64.843c-19.433 39.662-16.518 79.807 5.063 97.343c-1.662 11.733-1.12 23.82 2.563 34.78c3.15 9.38 8.978 18.053 18 23.533c7.033 4.27 15.684 6.4 25.562 6.155c9.402 9.173 18.922 17.656 29.375 25.22C92.165 360.824 83.33 393.616 84 429.5l18.688-.375c-.648-34.763 8.662-63.02 25.937-78.03a173 173 0 0 0 18.22 9.03c-10.153 19.133-14.64 43.44-14.157 69.375l18.687-.375c-.466-25.03 4.23-46.694 13.344-62.47c5.153 1.6 10.558 3.06 16.25 4.345c-3.35 16.865-4.853 36.836-4.657 58.406L195 429.22c-.187-20.688 1.315-39.628 4.344-54.783c16.303 2.444 34.742 3.75 55.906 3.75c25.547 0 47.04-1.858 65.625-5.312c.082.386.17.765.25 1.156c3.083 15.22 4.595 34.32 4.406 55.19l18.69.186c.197-21.862-1.338-42.087-4.783-59.094c-.108-.537-.23-1.062-.343-1.593c5.266-1.43 10.307-2.996 15.094-4.72c10.175 15.957 15.462 38.65 14.968 65.125l18.656.375c.514-27.556-4.59-53.282-16.125-72.906a171 171 0 0 0 15.938-8.844c20.01 13.876 30.888 43.84 30.188 81.375l18.687.375c.718-38.435-9.458-73.327-32.844-93.03c7.506-5.86 14.638-12.214 21.688-19c12.43-2.21 22.325-7.357 29.156-14.783c7.275-7.907 10.788-17.947 11.625-28.03c.755-9.095-.477-18.37-3.063-27.25c28.068-12.473 39.56-55.32 25.594-101.845C474.44 98.2 438.8 63.566 406.126 63.5zm-71.188 206.188l51.532 43.53l-45.626-22.28l-32.156 35.187l-5.782 6.344l-6.812-5.25l-41.97-32.314l-32.905 34.28l-6.69 7.002l-6.75-6.97l-32.905-33.968l-40.063 20.125l47.032-39.75l1.656 1.688l30.938 31.937l32-33.344l5.812-6.062l6.625 5.125l41.813 32.217l31.062-34l3.188-3.5z"></path></svg> <p style="word-break: keep-all; text-wrap: nowrap;">No Passwords Found</p></div>` : ``}</main>`;
+});
+export {
+  Page as default
+};

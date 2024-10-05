@@ -7,7 +7,7 @@
   let has_changed = false,
     hidden = true;
 
-  const origin_password = JSON.parse(JSON.stringify(_password));
+  let origin_password = stringify_password();
   const check_diff = () => {
     has_changed = JSON.stringify(origin_password) !== JSON.stringify(_password);
   };
@@ -17,6 +17,13 @@
   };
 
   async function delete_form(event: SubmitEvent) {
+    if (
+      !confirm(`Ar you sure you want to delete this password?
+      Nickname: ${_password.nickname}
+      Site name: ${_password.site_name}`)
+    ) {
+      return;
+    }
     //@ts-ignore
     const formData = new FormData(event.target);
     const repsonse = await delete_password(formData);
@@ -29,21 +36,30 @@
   async function edit_form(event: SubmitEvent) {
     //@ts-ignore
     const formData = new FormData(event.target);
-    const repsonse = await edit_password(formData);
-    if (repsonse != undefined) {
-      //@ts-ignore
-    }
+    await edit_password(formData);
+
+    // recalc password
+    origin_password = stringify_password();
+    check_diff();
+  }
+
+  function stringify_password(): Password_Object {
+    return JSON.parse(JSON.stringify(_password));
   }
 </script>
 
 <details class="password-container" id={_password.id.toString()}>
   <summary>
     <table>
-      <tr>
+      <tr class="flex flex-row gap-2">
         <td>{_password.nickname}</td>
-      </tr>
-      <tr>
-        <td>{_password.site_name}</td>
+        {#if _password.site_name}
+          <td
+            >(<a target="_blank" href={_password.site_url} class="text-blue-400"
+              >{_password.site_name}</a
+            >)</td
+          >
+        {/if}
       </tr>
     </table>
   </summary>
@@ -121,7 +137,7 @@
     />
     <div class="flex flex-row ml-auto gap-3">
       {#if has_changed}
-        <input type="submit" value="Save" />
+        <input type="submit" value="Update" />
       {/if}
 
       <form on:submit|preventDefault={delete_form}>

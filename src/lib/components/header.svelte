@@ -18,7 +18,7 @@
   };
 </script>
 
-<header class="flex flex-row items-center">
+<header class="flex flex-row items-center fixed w-full shadow">
   <div class="logo ml-2">
     <h1>Helios 3</h1>
   </div>
@@ -59,6 +59,15 @@
     </button>
   </div>
 </header>
-<div class="md:hidden">
-  <Search />
-</div>
+{#if !is_open}
+  <div class="md:hidden fixed w-screen top-14 shadow-lg" id="search-bar">
+    <Search />
+  </div>
+{/if}
+
+<style>
+  header,
+  #search-bar {
+    background-color: #070707;
+  }
+</style>

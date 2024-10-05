@@ -13,22 +13,24 @@
   };
 </script>
 
-<form class="" method="get" on:submit|preventDefault={search_form}>
+<form class="md:mr-3" method="get" on:submit|preventDefault={search_form}>
   <input
     name="q"
     type="text"
     placeholder="Search"
-    class="rounded pl-3 py-2 my-auto"
+    class="md:rounded pl-3 py-2 my-auto"
   />
 </form>
 
 <style>
   input {
     border: 0px;
+    outline: 1px solid grey;
+    transition: 0.3s all;
   }
   input:hover,
   input:focus {
     border: 0px;
-    outline: 1px solid grey;
+    outline: 1px solid gold;
   }
 </style>
