@@ -5,5 +5,8 @@
 	],
 	"/home": [
 		"src/routes/+layout.ts"
+	],
+	"/password_generator": [
+		"src/routes/+layout.ts"
 	]
 }

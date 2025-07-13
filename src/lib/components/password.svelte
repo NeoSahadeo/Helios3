@@ -3,9 +3,10 @@
   import { delete_password, edit_password } from "$lib/utils";
   import type { Password_Object } from "$lib/utils";
 
-  export let _password: Password_Object;
-  let has_changed = false,
-    hidden = true;
+  let { _password }: { _password: Password_Object } = $props();
+  let has_changed = $state(false);
+  let hidden = $state(true);
+  let _form = $state<HTMLFormElement>();
 
   let origin_password = stringify_password();
   const check_diff = () => {
@@ -16,7 +17,9 @@
     hidden = !hidden;
   };
 
-  async function delete_form(event: SubmitEvent) {
+  async function delete_form() {
+    if (!_form) return;
+
     if (
       !confirm(`Ar you sure you want to delete this password?
       Nickname: ${_password.nickname}
@@ -24,12 +27,12 @@
     ) {
       return;
     }
-    //@ts-ignore
-    const formData = new FormData(event.target);
+
+    const formData = new FormData(_form);
     const repsonse = await delete_password(formData);
+
     if (repsonse != undefined) {
-      //@ts-ignore
-      document.getElementById(formData.get("id")).remove();
+      document.getElementById(_password.id.toString())!.remove();
     }
   }
 
@@ -51,20 +54,32 @@
 <details class="password-container" id={_password.id.toString()}>
   <summary>
     <table>
-      <tr class="flex flex-row gap-2">
-        <td>{_password.nickname}</td>
-        {#if _password.site_name}
-          <td
-            >(<a target="_blank" href={_password.site_url} class="text-blue-400"
-              >{_password.site_name}</a
-            >)</td
-          >
-        {/if}
-      </tr>
+      <tbody>
+        <tr class="flex flex-row gap-2">
+          <td>{_password.nickname}</td>
+          {#if _password.site_name}
+            <td
+              >(<a
+                target="_blank"
+                href={_password.site_url}
+                class="text-blue-400">{_password.site_name}</a
+              >)</td
+            >
+          {/if}
+        </tr>
+      </tbody>
     </table>
   </summary>
   <h1 class="text-lg font-bold underline">Contents</h1>
-  <form on:submit|preventDefault={edit_form} on:input={check_diff}>
+  <form
+    bind:this={_form}
+    onsubmit={(e) => {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      edit_form(e);
+    }}
+    oninput={check_diff}
+  >
     <input name="id" value={_password.id.toString()} hidden />
     <input
       name="username"
@@ -86,7 +101,13 @@
           placeholder="Password"
         />
       {/if}
-      <button on:click|preventDefault={toggle_visibility}>
+      <button
+        onclick={(e) => {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          toggle_visibility;
+        }}
+      >
         {#if hidden}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -135,15 +156,22 @@
       bind:value={_password.site_url}
       placeholder="Site URL"
     />
-    <div class="flex flex-row ml-auto gap-3">
+    <div class="flex flex-col sm:flex-row mt-4 sm:mt-0 gap-3">
       {#if has_changed}
-        <input type="submit" value="Update" />
+        <input type="submit" value="Update" class="btn btn-primary" />
       {/if}
-
-      <form on:submit|preventDefault={delete_form}>
-        <input name="id" value={_password.id.toString()} hidden />
-        <input type="submit" value="Delete" />
-      </form>
+      <div class="">
+        <button
+          class="btn btn-error w-full"
+          onclick={(e) => {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            delete_form();
+          }}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   </form>
 </details>

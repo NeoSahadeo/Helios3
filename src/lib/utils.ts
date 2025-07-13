@@ -53,8 +53,8 @@ export async function fetch_passwords() {
 }
 
 export function url_resolver(_type: "api" | "local"): string {
+  // local
   if (base === "") {
-    // local
     if (_type === "api") {
       return "http://127.0.0.1:8000/";
     }

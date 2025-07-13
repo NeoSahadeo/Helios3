@@ -13,24 +13,18 @@
   };
 </script>
 
-<form class="md:mr-3" method="get" on:submit|preventDefault={search_form}>
+<form
+  method="get"
+  onsubmit={(e) => {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    search_form(e);
+  }}
+>
   <input
     name="q"
     type="text"
-    placeholder="Search"
-    class="md:rounded pl-3 py-2 my-auto"
+    placeholder="Search Passwords"
+    class="input input-primary w-max"
   />
 </form>
-
-<style>
-  input {
-    border: 0px;
-    outline: 1px solid grey;
-    transition: 0.3s all;
-  }
-  input:hover,
-  input:focus {
-    border: 0px;
-    outline: 1px solid gold;
-  }
-</style>

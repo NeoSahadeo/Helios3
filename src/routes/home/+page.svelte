@@ -1,8 +1,7 @@
 <script lang="ts">
-  import type { Password_Object } from "$lib/utils";
   import Password from "$lib/components/password.svelte";
   import Header from "$lib/components/header.svelte";
-  import { fetch_passwords } from "$lib/utils";
+  import { fetch_passwords, type Password_Object } from "$lib/utils";
   import { onMount } from "svelte";
   import "./home.css";
   import { passwords_store } from "$lib/store";
@@ -10,23 +9,10 @@
   let spacer: HTMLElement;
   onMount(async () => {
     passwords_store.set(await fetch_passwords());
-    window.addEventListener("resize", calc_header);
-    calc_header();
   });
-
-  function calc_header() {
-    const header = document.getElementsByTagName("header")[0];
-    const search_bar = document.getElementById("search-bar");
-    if (header && search_bar) {
-      const header_size = header.getBoundingClientRect();
-      const search_bar_size = search_bar.getBoundingClientRect();
-      spacer.style.height = header_size.height + search_bar_size.height + "px";
-    }
-  }
 </script>
 
 <Header />
-<div bind:this={spacer}></div>
 <main>
   {#each $passwords_store as password}
     <Password _password={password} />
