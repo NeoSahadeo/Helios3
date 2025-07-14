@@ -2,12 +2,23 @@
   import Search from "./search.svelte";
   import CreateButton from "./createButton.svelte";
   import Logout from "./logout.svelte";
-  import { url_resolver } from "$lib/utils";
+  import { url_resolver, drawer_listener } from "$lib/utils";
   import { onMount } from "svelte";
 
   let spacer = $state<HTMLElement>();
+  let drawer = $state<HTMLInputElement>();
+
+  function toggle_drawer() {
+    drawer?.click();
+  }
+
   onMount(async () => {
+    window.removeEventListener("resize", calc_header);
     window.addEventListener("resize", calc_header);
+
+    drawer_listener.remove("toggle", toggle_drawer);
+    drawer_listener.on("toggle", toggle_drawer);
+
     calc_header();
   });
 
@@ -24,7 +35,7 @@
   class="flex flex-row items-center fixed w-full shadow bg-neutral-900 py-2 z-50"
 >
   <div class="drawer w-16">
-    <input id="menu" type="checkbox" class="drawer-toggle" />
+    <input bind:this={drawer} id="menu" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
       <label for="menu" class="drawer-button btn btn-ghost">
         <svg

@@ -6,15 +6,6 @@
 
   let { password_obj }: { password_obj: Password_Object } = $props();
 
-  let email = $state<string>(password_obj.email);
-  let id = $state<number>(password_obj.id);
-  let nickname = $state<string>(password_obj.nickname);
-  let notes = $state<string>(password_obj.notes);
-  let password = $state<string>(password_obj.password);
-  let site_name = $state<string>(password_obj.site_name);
-  let site_url = $state<string>(password_obj.site_url);
-  let username = $state<string>(password_obj.username);
-
   let has_changed = $state(false);
   let hidden = $state(true);
   let _form = $state<HTMLFormElement>();
@@ -35,8 +26,8 @@
 
     if (
       !confirm(`Ar you sure you want to delete this password?
-      Nickname: ${nickname}
-      Site name: ${site_name}`)
+      Nickname: ${password_obj.nickname}
+      Site name: ${password_obj.site_name}`)
     ) {
       return;
     }
@@ -44,8 +35,8 @@
     const formData = new FormData(_form);
     const repsonse = await delete_password(formData);
 
-    if (repsonse != undefined && id) {
-      document.getElementById(id.toString())!.remove();
+    if (repsonse != undefined && password_obj.id) {
+      document.getElementById(password_obj.id.toString())!.remove();
     }
   }
 
@@ -59,31 +50,22 @@
   }
 
   function stringify_password_obj(): Password_Object | undefined {
-    return JSON.parse(
-      JSON.stringify({
-        email,
-        id,
-        nickname,
-        notes,
-        password,
-        site_name,
-        site_url,
-        username,
-      }),
-    );
+    return JSON.parse(JSON.stringify(password_obj));
   }
 </script>
 
-<details class="password-container" id={id?.toString()}>
+<details class="password-container" id={password_obj.id?.toString()}>
   <summary>
     <table>
       <tbody>
         <tr class="flex flex-row gap-2">
-          <td>{nickname}</td>
-          {#if site_name}
+          <td>{password_obj.nickname}</td>
+          {#if password_obj.site_name}
             <td
-              >(<a target="_blank" href={site_url} class="text-blue-400"
-                >{site_name}</a
+              >(<a
+                target="_blank"
+                href={password_obj.site_url}
+                class="text-blue-400">{password_obj.site_name}</a
               >)</td
             >
           {/if}
@@ -101,18 +83,26 @@
     }}
     oninput={check_diff}
   >
-    <input name="id" value={id?.toString()} hidden />
-    <input name="username" bind:value={username} placeholder="Username" />
+    <input name="id" value={password_obj.id?.toString()} hidden />
+    <input
+      name="username"
+      bind:value={password_obj.username}
+      placeholder="Username"
+    />
     <div class="flex">
       {#if hidden}
         <input
           name="password"
-          bind:value={password}
+          bind:value={password_obj.password}
           placeholder="Password"
           type="password"
         />
       {:else}
-        <input name="password" bind:value={password} placeholder="Password" />
+        <input
+          name="password"
+          bind:value={password_obj.password}
+          placeholder="Password"
+        />
       {/if}
       <button
         aria-label="Toggle Password"
@@ -157,7 +147,7 @@
           e.preventDefault();
           e.stopImmediatePropagation();
           hidden = false;
-          password = generate({});
+          password_obj.password = generate({});
           check_diff();
         }}
       >
@@ -173,11 +163,24 @@
         >
       </button>
     </div>
-    <input name="email" bind:value={email} placeholder="Email" />
-    <input name="nickname" bind:value={nickname} placeholder="Nickname" />
-    <textarea name="notes" placeholder="Notes" bind:value={notes}></textarea>
-    <input name="site_name" bind:value={site_name} placeholder="Site Name" />
-    <input name="site_url" bind:value={site_url} placeholder="Site URL" />
+    <input name="email" bind:value={password_obj.email} placeholder="Email" />
+    <input
+      name="nickname"
+      bind:value={password_obj.nickname}
+      placeholder="Nickname"
+    />
+    <textarea name="notes" placeholder="Notes" bind:value={password_obj.notes}
+    ></textarea>
+    <input
+      name="site_name"
+      bind:value={password_obj.site_name}
+      placeholder="Site Name"
+    />
+    <input
+      name="site_url"
+      bind:value={password_obj.site_url}
+      placeholder="Site URL"
+    />
     <div class="flex flex-col sm:flex-row mt-4 sm:mt-0 gap-3">
       {#if has_changed}
         <input type="submit" value="Update" class="btn btn-primary" />

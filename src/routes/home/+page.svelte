@@ -10,7 +10,8 @@
     console.log("refreshing");
     password_state_update(await fetch_passwords());
   }
-  onMount(async () => {
+  onMount(() => {
+    passwords_listener.remove("refresh_passwords", refresh_passwords);
     passwords_listener.on("refresh_passwords", refresh_passwords);
     passwords_listener.dispatch("refresh_passwords");
   });

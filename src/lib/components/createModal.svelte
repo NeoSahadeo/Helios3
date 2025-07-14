@@ -1,7 +1,13 @@
 <script lang="ts">
   import type { Password_Object } from "$lib/utils";
-  import { create_password, passwords_listener } from "$lib/utils";
+  import {
+    create_password,
+    passwords_listener,
+    drawer_listener,
+    fetch_passwords,
+  } from "$lib/utils";
   import { generate } from "$lib/password_gen";
+  import { password_state_update } from "$lib/state.svelte";
 
   let _password: Password_Object = $state({}) as Password_Object;
   let _dialog: HTMLDialogElement;
@@ -18,6 +24,8 @@
 
     _password = {} as Password_Object;
     _dialog.close();
+    passwords_listener.dispatch("refresh_passwords");
+    drawer_listener.dispatch("toggle");
   };
 </script>
 

@@ -196,6 +196,7 @@ export class Events {
 }
 
 export const passwords_listener = new Events();
+export const drawer_listener = new Events();
 
 function csv_download(csv_data: string) {
   const blob = new Blob([csv_data], { type: "text/csv" });

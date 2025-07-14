@@ -10,7 +10,7 @@
     const formData = new FormData(event.target);
     const s = await search(formData);
     console.log(s);
-    password_state_update(s);
+    password_state_update(s as any);
   };
 </script>
 
