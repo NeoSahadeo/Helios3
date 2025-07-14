@@ -8,7 +8,9 @@
       message: "Searching...",
     });
     const formData = new FormData(event.target);
-    password_state_update((await search(formData)) as any);
+    const s = await search(formData);
+    console.log(s);
+    password_state_update(s);
   };
 </script>
 

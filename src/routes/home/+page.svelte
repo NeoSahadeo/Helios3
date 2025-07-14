@@ -6,27 +6,22 @@
   import { fetch_passwords, passwords_listener } from "$lib/utils";
   import { onMount } from "svelte";
 
-  let passwords = $state(get_password_state());
-
   async function refresh_passwords() {
     console.log("refreshing");
     password_state_update(await fetch_passwords());
-    passwords = get_password_state();
   }
   onMount(async () => {
     passwords_listener.on("refresh_passwords", refresh_passwords);
     passwords_listener.dispatch("refresh_passwords");
   });
-
-  $inspect(passwords);
 </script>
 
 <Header />
 <main>
-  {#each passwords as password}
+  {#each get_password_state() as password}
     <Password password_obj={password} />
   {/each}
-  {#if passwords.length == 0}
+  {#if get_password_state().length == 0}
     <div
       class="flex flex-row gap-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
     >
