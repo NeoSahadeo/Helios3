@@ -222,3 +222,104 @@ export async function export_csv() {
 
   csv_download(export_array.join("\n"));
 }
+
+export function import_csv() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "text/csv,.csv";
+
+  input.addEventListener("change", () => {
+    if (input.files == null) return;
+
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = async (e) => {
+      const csv_text = e.target?.result;
+      if (!csv_text) return;
+      // Parse data
+      const passwords = parse_csv(csv_text.toString());
+      passwords?.reverse();
+      if (!passwords) return;
+
+      // Ask for confirmation
+      if (
+        !confirm(
+          "Are you sure you want to import: " +
+          file.name +
+          "\n This import cannot be undone",
+        )
+      )
+        return;
+
+      for (let x = 0; x < passwords.length; x++) {
+        const form = document.createElement("form");
+
+        const nickname = document.createElement("input");
+        nickname.name = "nickname";
+        nickname.value = passwords[x].nickname;
+
+        const password = document.createElement("input");
+        password.name = "password";
+        password.value = passwords[x].password;
+
+        const site_url = document.createElement("input");
+        site_url.name = "site_url";
+        site_url.value = passwords[x].site_url;
+
+        const site_name = document.createElement("input");
+        site_name.name = "site_name";
+        site_name.value = passwords[x].site_name;
+
+        const notes = document.createElement("textarea");
+        notes.name = "notes";
+        notes.value = passwords[x].notes;
+
+        const email = document.createElement("input");
+        email.name = "email";
+        email.value = passwords[x].email;
+
+        const username = document.createElement("input");
+        username.name = "username";
+        username.value = passwords[x].username;
+
+        form.appendChild(nickname);
+        form.appendChild(password);
+        form.appendChild(site_url);
+        form.appendChild(site_name);
+        form.appendChild(notes);
+        form.appendChild(email);
+        form.appendChild(username);
+
+        const form_data = new FormData(form);
+        await create_password(form_data);
+      }
+    };
+    reader.onerror = (error) => {
+      console.error("Error reading file:", error);
+    };
+
+    reader.readAsText(file);
+  });
+
+  input.click();
+}
+
+function parse_csv(csv_text: string) {
+  const lines = csv_text.split("\n");
+  const header = lines.shift()?.split(",");
+  if (!header) return;
+
+  const csv_data: Password_Object[] = [];
+
+  lines.forEach((e) => {
+    const obj: any = {};
+    const data = e.split(",");
+    for (let x = 0; x < header?.length; x++) {
+      obj[header[x]] = data[x];
+    }
+    csv_data.push(obj);
+  });
+
+  return csv_data;
+}
