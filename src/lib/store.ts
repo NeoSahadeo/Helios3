@@ -25,7 +25,7 @@ class Modal {
 
 export const modal = new Modal();
 
-export const passwords_store = writable<Password_Object[]>([]);
+// export const passwords_store = writable<Password_Object[]>([]);
 
 // Message System Start
 export type MessageType = {

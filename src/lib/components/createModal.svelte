@@ -1,53 +1,36 @@
 <script lang="ts">
   import type { Password_Object } from "$lib/utils";
-  import { create_password } from "$lib/utils";
-  import { modal } from "$lib/store";
-  import { fetch_passwords } from "$lib/utils";
-  import { passwords_store } from "$lib/store";
+  import { create_password, passwords_listener } from "$lib/utils";
+  import { generate } from "$lib/password_gen";
 
-  //@ts-ignore
-  let _password: Password_Object = {},
-    _dialog: HTMLDialogElement,
-    _form: HTMLFormElement,
-    _generated_password: string;
+  let _password: Password_Object = $state({}) as Password_Object;
+  let _dialog: HTMLDialogElement;
+  let _form: HTMLFormElement;
 
-  // Close modal
-  const close_modal = () => {
-    if (confirm("Are you sure you want to close this form?")) {
-      modal.close();
-      //@ts-ignore
-      _password = {};
-    }
-  };
-
-  // Update modal
-  modal.subscribe((value: any) => {
-    if (_dialog) {
-      value ? _dialog.classList.add("flex") : _dialog.classList.remove("flex");
-    }
+  $effect(() => {
+    _password.password = generate({});
   });
 
   // create password
   const save_form = async (event: any) => {
     const formData = new FormData(event.target);
-    const response = await create_password(formData);
-    passwords_store.set(await fetch_passwords());
+    await create_password(formData);
 
-    //@ts-ignore
-    _password = {};
-    modal.close();
+    _password = {} as Password_Object;
+    _dialog.close();
   };
 </script>
 
-<dialog class="items-center justify-center flex-col" bind:this={_dialog}>
-  <div
-    style="background-color: #070707;"
-    class="flex flex-col px-4 py-2 pb-5 sm:rounded w-full sm:max-w-lg sm:h-auto h-full"
-  >
+<dialog bind:this={_dialog} id="create_modal" class="modal">
+  <div class="modal-box">
     <form
       bind:this={_form}
       class="flex flex-col"
-      on:submit|preventDefault={save_form}
+      onsubmit={(e) => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        save_form(e);
+      }}
     >
       <h1 class="text-lg underline font-bold">Create a password</h1>
       <input
@@ -61,6 +44,25 @@
           bind:value={_password.password}
           placeholder="Password"
         />
+        <button
+          aria-label="Generate new password"
+          onclick={(e) => {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            _password.password = generate({});
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1.7em"
+            height="1.7em"
+            viewBox="0 0 24 24"
+            ><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path
+              fill="white"
+              d="M5.3 18.025q-1.075-1.2-1.687-2.75T3 12q0-3.75 2.625-6.375T12 3V1l5 3.75l-5 3.75v-2q-2.275 0-3.887 1.613T6.5 12q0 1.15.438 2.15t1.187 1.75zM12 23l-5-3.75l5-3.75v2q2.275 0 3.888-1.612T17.5 12q0-1.15-.437-2.15T15.875 8.1L18.7 5.975q1.075 1.2 1.688 2.75T21 12q0 3.75-2.625 6.375T12 21z"
+            /></svg
+          >
+        </button>
       </div>
       <input name="email" bind:value={_password.email} placeholder="Email" />
       <input
@@ -80,38 +82,12 @@
         bind:value={_password.site_url}
         placeholder="Site URL"
       />
-      <button
-        class="bg-blue-600 max-w-32 rounded mt-4 py-3 md:py-2 hover:bg-blue-900"
-        >Create</button
-      >
+      <button class="btn btn-success mt-10">Create</button>
     </form>
-    <button
-      class="bg-red-600 max-w-32 rounded px-3 py-3 md:py-2 mt-4 hover:bg-red-900"
-      on:click={close_modal}>Close</button
-    >
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn btn-soft btn-error">Close</button>
+      </form>
+    </div>
   </div>
 </dialog>
-
-<style>
-  dialog {
-    background-color: black;
-    z-index: 20;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-  }
-  form input,
-  form textarea {
-    outline: 0px solid gray;
-    width: 100%;
-    padding: 0.2em 0.5em;
-    border-radius: 0.135em;
-    background-color: black;
-  }
-  form input:hover,
-  form textarea:hover,
-  form input:focus,
-  form textarea:focus {
-    outline: 1px solid gray;
-  }
-</style>

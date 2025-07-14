@@ -48,5 +48,5 @@
     logout();
   }}
 >
-  <button class="btn btn-soft btn-error w-full"> Logout </button>
+  <button class={`btn btn-soft btn-error w-full`}> Logout </button>
 </form>

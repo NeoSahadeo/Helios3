@@ -21,7 +21,7 @@
 </script>
 
 <header
-  class="flex flex-row items-center fixed w-full shadow bg-neutral-900 py-2"
+  class="flex flex-row items-center fixed w-full shadow bg-neutral-900 py-2 z-50"
 >
   <div class="drawer w-16">
     <input id="menu" type="checkbox" class="drawer-toggle" />
@@ -43,23 +43,47 @@
       <label for="menu" aria-label="close sidebar" class="drawer-overlay"
       ></label>
       <ul
-        class="menu bg-base-200 text-base-content min-h-full w-80 p-4 top-0 left-0"
+        class="menu bg-base-200 text-base-content min-h-full w-72 p-4 top-0 left-0"
       >
+        <li class="-ml-5">
+          <input id="menu" type="checkbox" class="drawer-toggle" />
+          <div class="drawer-content remove-style">
+            <label for="menu" class="drawer-button btn">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                ><!-- Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE --><path
+                  fill="currentColor"
+                  d="M3 18h18v-2H3zm0-5h18v-2H3zm0-7v2h18V6z"
+                /></svg
+              >
+            </label>
+          </div>
+        </li>
         <li><a href={url_resolver("local") + "home"}>Home</a></li>
         <li>
           <a href={url_resolver("local") + "password_generator"}
             >Password Generator</a
           >
         </li>
-        <li>
+        <div class="mt-5">
           <CreateButton />
-        </li>
-        <li class="mt-auto">
+        </div>
+        <div class="mt-auto">
           <Logout />
-        </li>
+        </div>
       </ul>
     </div>
   </div>
   <Search />
 </header>
 <div bind:this={spacer}></div>
+
+<style>
+  .remove-style {
+    background: none !important;
+    background-color: none !important;
+  }
+</style>

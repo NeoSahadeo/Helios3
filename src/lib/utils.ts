@@ -1,6 +1,6 @@
 import { base } from "$app/paths";
 import { notify } from "./store";
-import { passwords_store } from "./store";
+import { password_state_update, get_password_state } from "$lib/state.svelte";
 
 export interface Password_Object {
   created: string;
@@ -156,7 +156,8 @@ export async function edit_password(formData: FormData) {
 }
 
 export async function create_password(formData: FormData) {
-  return password_crud(formData, "post");
+  passwords_listener.dispatch("refresh_passwords");
+  return await password_crud(formData, "post");
 }
 
 export async function search(formData: FormData) {
@@ -167,5 +168,31 @@ export async function refresh() {
   // periodically check the validity of the session
   // periodically check for password
   const passwords = await fetch_passwords();
-  passwords_store.set(passwords);
+  password_state_update(passwords);
 }
+
+export class Events {
+  private events: any = {};
+
+  on(name: string, callback: (...args: any) => void) {
+    if (!this.events[name]) {
+      this.events[name] = [];
+    }
+    this.events[name].push(callback);
+  }
+  remove(name: string, callback: () => void) {
+    if (this.events[name]) {
+      this.events.filter((e: () => void) => e !== callback);
+
+      if (this.events[name].length === 0) delete this.events[name];
+    }
+  }
+  dispatch(name: string, data?: any) {
+    if (this.events[name])
+      for (let x = 0; x < this.events[name].length; x++) {
+        this.events[name][x](data);
+      }
+  }
+}
+
+export const passwords_listener = new Events();

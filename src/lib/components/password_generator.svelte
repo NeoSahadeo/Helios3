@@ -79,13 +79,7 @@
 <div class="flex flex-row gap-2 w-fit items-center mt-3 mb-3">
   <span>Length</span>
 
-  <!--Weird z index bug-->
-  <input
-    class="input input-primary"
-    type="number"
-    bind:value={length}
-    style="z-index: -1"
-  />
+  <input class="input input-primary" type="number" bind:value={length} />
 </div>
 
 <password-checkbox

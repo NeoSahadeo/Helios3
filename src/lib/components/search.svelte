@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { passwords_store } from "$lib/store";
-  import { search } from "$lib/utils";
+  import { password_state_update, get_password_state } from "$lib/state.svelte";
+  import { search, type Password_Object } from "$lib/utils";
   import { notify } from "$lib/store";
 
   const search_form = async (event: any) => {
@@ -8,8 +8,7 @@
       message: "Searching...",
     });
     const formData = new FormData(event.target);
-    //@ts-ignore
-    passwords_store.set(await search(formData));
+    password_state_update((await search(formData)) as any);
   };
 </script>
 
