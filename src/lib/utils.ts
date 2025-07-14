@@ -196,3 +196,29 @@ export class Events {
 }
 
 export const passwords_listener = new Events();
+
+function csv_download(csv_data: string) {
+  const blob = new Blob([csv_data], { type: "text/csv" });
+
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+
+  const date = new Date();
+
+  anchor.href = url;
+  anchor.download = `helios3passwords-${date.getDay()}-${date.getTime()}`;
+  anchor.click();
+}
+
+export async function export_csv() {
+  const passwords = await fetch_passwords();
+  const headers = Object.keys(passwords[0]).join(",");
+
+  const export_array = [headers];
+
+  passwords.forEach((e: Password_Object) => {
+    export_array.push(Object.values(e).join(","));
+  });
+
+  csv_download(export_array.join("\n"));
+}

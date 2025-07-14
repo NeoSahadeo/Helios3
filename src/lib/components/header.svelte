@@ -68,6 +68,9 @@
             >Password Generator</a
           >
         </li>
+        <li>
+          <a href={url_resolver("local") + "dashboard"}> Dashboard </a>
+        </li>
         <div class="mt-5">
           <CreateButton />
         </div>
@@ -77,7 +80,9 @@
       </ul>
     </div>
   </div>
-  <Search />
+  {#if url_resolver("local") + "home" == window.location.href}
+    <Search />
+  {/if}
 </header>
 <div bind:this={spacer}></div>
 

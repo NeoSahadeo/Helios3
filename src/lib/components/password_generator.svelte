@@ -36,7 +36,11 @@
   });
 </script>
 
-<div class="py-3 bg-neutral-800 rounded px-4 mb-4">{password}</div>
+<div
+  class="bg-neutral-800 rounded max-h-10 min-h-10 mb-4 overflow-scroll text-nowrap items-center flex flex-row pl-2 pt-2"
+>
+  {password}
+</div>
 <button class="btn btn-primary" onclick={gen_password}>
   Generate Password
 </button>
