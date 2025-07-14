@@ -7,7 +7,6 @@
   import { onMount } from "svelte";
 
   async function refresh_passwords() {
-    console.log("refreshing");
     password_state_update(await fetch_passwords());
   }
   onMount(() => {

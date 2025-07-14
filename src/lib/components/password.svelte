@@ -3,8 +3,11 @@
   import { delete_password, edit_password } from "$lib/utils";
   import type { Password_Object } from "$lib/utils";
   import { generate } from "$lib/password_gen";
+  import CopyButton from "./copyButton.svelte";
 
   let { password_obj }: { password_obj: Password_Object } = $props();
+
+  let copy_anim = $state(false);
 
   let has_changed = $state(false);
   let hidden = $state(true);
@@ -162,6 +165,9 @@
           /></svg
         >
       </button>
+      <span class="ml-3">
+        <CopyButton {copy_anim} text={password_obj.password} />
+      </span>
     </div>
     <input name="email" bind:value={password_obj.email} placeholder="Email" />
     <input

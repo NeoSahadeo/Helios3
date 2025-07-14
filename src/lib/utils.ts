@@ -181,7 +181,7 @@ export class Events {
     this.events[name].push(callback);
   }
   remove(name: string, callback: () => void) {
-    if (this.events[name]) {
+    if (this.events[name] && this.events.length > 0) {
       this.events.filter((e: () => void) => e !== callback);
 
       if (this.events[name].length === 0) delete this.events[name];
