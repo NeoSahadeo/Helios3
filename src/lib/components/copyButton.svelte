@@ -12,7 +12,7 @@
   }
 </script>
 
-<button class="btn btn-accent w-24" onclick={copy}>
+<button class="btn btn-accent w-full sm:w-24" onclick={copy}>
   {#if !copy_anim}
     Copy
     <svg

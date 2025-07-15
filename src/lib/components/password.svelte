@@ -165,7 +165,7 @@
           /></svg
         >
       </button>
-      <span class="ml-3">
+      <span class="ml-3 hidden sm:block">
         <CopyButton {copy_anim} text={password_obj.password} />
       </span>
     </div>
@@ -187,7 +187,11 @@
       bind:value={password_obj.site_url}
       placeholder="Site URL"
     />
+
     <div class="flex flex-col sm:flex-row mt-4 sm:mt-0 gap-3">
+      <span class="sm:hidden">
+        <CopyButton {copy_anim} text={password_obj.password} />
+      </span>
       {#if has_changed}
         <input type="submit" value="Update" class="btn btn-primary" />
       {/if}
