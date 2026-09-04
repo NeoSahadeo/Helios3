@@ -67,7 +67,7 @@ export function url_resolver(_type: "api" | "local"): string {
     return "https://neosahadeo.pythonanywhere.com/";
   }
   if (_type === "local") {
-    return "https://neosahadeo.github.io/Helios3/";
+    return "https://neosahadeo.co.za/Helios3/";
   }
 
   // This is for typescript-- ignore it
